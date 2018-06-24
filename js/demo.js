@@ -19,7 +19,6 @@
         }
     };
 
-    // from http://www.quirksmode.org/js/events_properties.html#position
 	const getMousePos = (e) => {
         let posx = 0;
         let posy = 0;
@@ -115,19 +114,16 @@
         tilt(ev) {
             if ( !allowTilt ) return;
             const mousepos = getMousePos(ev);
-            // Document scrolls.
             const docScrolls = {
                 left : document.body.scrollLeft + document.documentElement.scrollLeft, 
                 top : document.body.scrollTop + document.documentElement.scrollTop
             };
             const bounds = this.DOM.el.getBoundingClientRect();
-            // Mouse position relative to the main element (this.DOM.el).
             const relmousepos = { 
                 x : mousepos.x - bounds.left - docScrolls.left, 
                 y : mousepos.y - bounds.top - docScrolls.top 
             };
             
-            // Movement settings for the animatable elements.
             for (let key in this.DOM.animatable) {
                 if ( this.DOM.animatable[key] == undefined || this.options[key] == undefined ) {
                     continue;
@@ -272,7 +268,6 @@
             this.isPreviewOpen = true;
             allowTilt = false;
             this.overlay.show(contentItem);
-            // "explode" grid..
             for (let item of this.items) {
                 for (let key in item.DOM.animatable) {
                     const el = item.DOM.animatable[key];
@@ -284,19 +279,14 @@
                         const win = {width: window.innerWidth, height: window.innerHeight};
 
                         if ( bounds.top + bounds.height/2 < win.height/2 - win.height*.1 ) {
-                            //x = getRandomInt(-250,-50);
-                            //y = getRandomInt(20,100)*-1;
                             x = -1*lineEq(20, 600, 0, win.width, Math.abs(bounds.left+bounds.width - win.width));
                             y = -1*lineEq(20, 600, 0, win.width, Math.abs(bounds.left+bounds.width - win.width));
                         }
                         else if ( bounds.top + bounds.height/2 > win.height/2 + win.height*.1 ) {
-                            //x = getRandomInt(-250,-50);
-                            //y = getRandomInt(20,100);
                             x = -1*lineEq(20, 600, 0, win.width, Math.abs(bounds.left+bounds.width - win.width));
                             y = lineEq(20, 600, 0, win.width, Math.abs(bounds.left+bounds.width - win.width))
                         }
                         else {
-                            //x = getRandomInt(300,700)*-1;
                             x = -1*lineEq(10, 700, 0, win.width, Math.abs(bounds.left+bounds.width - win.width));
                             y = getRandomInt(-25,25);
                         }
@@ -343,6 +333,6 @@
     let allowTilt = true;
     new Grid(document.querySelector('.grid'));
 
-    // Preload all the images in the page..
+    // Preload all the images
     imagesLoaded(document.querySelectorAll('.box__img'), () => document.body.classList.remove('loading'));
 }
