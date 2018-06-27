@@ -1,4 +1,4 @@
-# internblog.fherlaban.github.io
+# internblog
 My Internship Blog
 
-https://fherlaban.github.io/internblog.fherlaban.github.io/
+https://fherlaban.github.io/internblog/
